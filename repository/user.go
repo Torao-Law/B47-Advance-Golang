@@ -38,7 +38,7 @@ func (r *repository) GetUser(ID int) (models.User, error) {
 }
 
 func (r *repository) CreateUser(users models.User) (models.User, error) {
-	err := r.db.Exec("INSERT INTO `users`(`name`, `email`, `password`, `created_at`, `updated_at`) VALUES (?,?,?,?,?)", users.Name, users.Email, users.Password, users.CreatedAt, users.UpdatedAt).Error
+	err := r.db.Create(&users).Error
 
 	return users, err
 }
