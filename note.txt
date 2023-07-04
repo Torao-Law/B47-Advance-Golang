@@ -4,3 +4,15 @@
 
 		return c.String(http.StatusOK, "Hello World")
 	})
+
+
+
+	MAIN => ROUTES => HANDLERS => REPOSTORY => MODELS => DATABASE
+
+	API => Koneksi/Perantara/Translater dua atau lebih aplikasi untuk berkomunikasi.
+
+	REST => Structure/Architecture/Aturan dalam pembuatan web/sofware, API. Scalable, decouple, http/s, JSON.
+
+	ORM => Assosiasi, HOOKS, Eager dst. Object Relations Mapping. Pengatur migrasi, teknik manipulasi data dari db to object. 
+
+	GORM => Golang ORM.
