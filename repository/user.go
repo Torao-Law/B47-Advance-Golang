@@ -10,7 +10,7 @@ type UserRepository interface {
 	FindUsers() ([]models.User, error)
 	GetUser(ID int) (models.User, error)
 	CreateUser(user models.User) (models.User, error)
-	UpdateUser(user models.User, ID int) (models.User, error)
+	UpdateUser(user models.User) (models.User, error)
 	DeleteUser(user models.User, ID int) (models.User, error)
 }
 
@@ -43,8 +43,8 @@ func (r *repository) CreateUser(users models.User) (models.User, error) {
 	return users, err
 }
 
-func (r *repository) UpdateUser(users models.User, ID int) (models.User, error) {
-	err := r.db.Raw("UPDATE `users` SET `name`=?,`email`=?,`password`=?,`updated_at`=? WHERE id = ?", users.Name, users.Email, users.Password, users.UpdatedAt, ID).Scan(&users).Error
+func (r *repository) UpdateUser(users models.User) (models.User, error) {
+	err := r.db.Save(&users).Error
 
 	return users, err
 }

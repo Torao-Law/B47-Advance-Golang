@@ -119,7 +119,7 @@ func (h *handler) UpdateUser(c echo.Context) error {
 
 	user.UpdatedAt = time.Now()
 
-	response, err := h.UserRepository.UpdateUser(user, id)
+	response, err := h.UserRepository.UpdateUser(user)
 
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{
