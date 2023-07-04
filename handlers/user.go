@@ -88,6 +88,50 @@ func (h *handler) CreateUser(c echo.Context) error {
 		Data: response})
 }
 
+func (h *handler) Updateuser(c echo.Context) error {
+	id, _ := strconv.Atoi(c.Param("id"))
+	user, err := h.UserRepository.GetUser(id)
+
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{
+			Code:    http.StatusBadRequest,
+			Message: err.Error()})
+	}
+
+	request := new(usersdto.UpdateUserRequest)
+	if err := c.Bind(&request); err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{
+			Code:    http.StatusBadRequest,
+			Message: err.Error()})
+	}
+
+	if request.Name != "" {
+		user.Name = request.Name
+	}
+
+	if request.Email != "" {
+		user.Email = request.Email
+	}
+
+	if request.Password != "" {
+		user.Password = request.Password
+	}
+
+	user.UpdatedAt = time.Now()
+
+	response, err := h.UserRepository.UpdateUser(user, id)
+
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{
+			Code:    http.StatusInternalServerError,
+			Message: err.Error()})
+	}
+
+	return c.JSON(http.StatusOK, dto.SuccessResult{
+		Code: http.StatusOK,
+		Data: response})
+}
+
 func convertResponse(u models.User) usersdto.UserResponse {
 	return usersdto.UserResponse{
 		ID:   u.ID,
