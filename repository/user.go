@@ -11,6 +11,7 @@ type UserRepository interface {
 	GetUser(ID int) (models.User, error)
 	CreateUser(user models.User) (models.User, error)
 	UpdateUser(user models.User, ID int) (models.User, error)
+	DeleteUser(user models.User, ID int) (models.User, error)
 }
 
 type repository struct {
@@ -46,4 +47,10 @@ func (r *repository) UpdateUser(users models.User, ID int) (models.User, error) 
 	err := r.db.Raw("UPDATE `users` SET `name`=?,`email`=?,`password`=?,`updated_at`=? WHERE id = ?", users.Name, users.Email, users.Password, users.UpdatedAt, ID).Scan(&users).Error
 
 	return users, err
+}
+
+func (r *repository) DeleteUser(user models.User, ID int) (models.User, error) {
+	err := r.db.Raw("DELETE FROM users WHERE id=?", ID).Scan(&user).Error
+
+	return user, err
 }
