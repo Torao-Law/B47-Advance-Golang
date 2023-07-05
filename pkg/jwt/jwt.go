@@ -2,11 +2,12 @@ package jwtToken
 
 import (
 	"fmt"
+	"os"
 
 	"github.com/golang-jwt/jwt/v5"
 )
 
-var Secret_Key = "SECRET_KEY"
+var Secret_Key = os.Getenv("SECRET_KEY")
 
 // create a new token
 func GenerateToken(claims *jwt.MapClaims) (string, error) {
