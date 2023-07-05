@@ -1,0 +1,53 @@
+package handlers
+
+import (
+	authdto "dumbmerch/dto/auth"
+	dto "dumbmerch/dto/result"
+	"dumbmerch/repository"
+	"net/http"
+
+	"dumbmerch/models"
+	"dumbmerch/pkg/bcrypt"
+
+	"github.com/go-playground/validator/v10"
+	"github.com/labstack/echo/v4"
+)
+
+type handlerAuth struct {
+	AuthRepository repository.AuthRepository
+}
+
+func HandlerAuth(AuthRepository repository.AuthRepository) *handlerAuth {
+	return &handlerAuth{AuthRepository}
+}
+
+func (h *handlerAuth) Register(c echo.Context) error {
+	request := new(authdto.AuthRequest)
+	if err := c.Bind(request); err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	}
+
+	validation := validator.New()
+	err := validation.Struct(request)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	}
+
+	password, err := bcrypt.HashingPassword(request.Password)
+	if err != nil {
+		return c.JSON(http.StatusBadRequest, dto.ErrorResult{Code: http.StatusBadRequest, Message: err.Error()})
+	}
+
+	user := models.User{
+		Name:     request.Name,
+		Email:    request.Email,
+		Password: password,
+	}
+
+	data, err := h.AuthRepository.Register(user)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, dto.ErrorResult{Code: http.StatusInternalServerError, Message: err.Error()})
+	}
+
+	return c.JSON(http.StatusOK, dto.SuccessResult{Code: http.StatusOK, Data: data})
+}

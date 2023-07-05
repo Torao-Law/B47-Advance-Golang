@@ -8,7 +8,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func ProductRoute(e *echo.Group) {
+func ProductRoutes(e *echo.Group) {
 	repo := repository.MakeRepository(mysql.DB)
 	h := handlers.ProductHandler(repo)
 
