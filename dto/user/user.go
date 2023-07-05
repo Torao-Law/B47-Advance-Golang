@@ -23,6 +23,7 @@ type UserResponse struct {
 	Email     string                 `json:"email"`
 	Password  string                 `json:"password"`
 	Profile   models.ProfileResponse `json:"profile"`
+	Products  models.Product         `json:"product"`
 	CreatedAt time.Time              `json:"created_at"`
 	UpdatedAt time.Time              `json:"updated_at"`
 }
