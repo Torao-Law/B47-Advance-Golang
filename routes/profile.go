@@ -9,7 +9,7 @@ import (
 )
 
 func ProfileRoute(e *echo.Group) {
-	repo := repository.ProfileRepository(mysql.DB)
+	repo := repository.MakeRepository(mysql.DB)
 	h := handlers.ProfileHandler(repo)
 
 	e.GET("/profile/:id", h.GetProfile)

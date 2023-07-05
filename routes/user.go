@@ -9,7 +9,7 @@ import (
 )
 
 func UserRoutes(e *echo.Group) {
-	r := repository.RepositoryUser(mysql.DB)
+	r := repository.MakeRepository(mysql.DB)
 	h := handlers.UserHandler(r)
 
 	e.GET("/users", h.FindUsers)

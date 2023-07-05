@@ -1,5 +1,10 @@
 package usersdto
 
+import (
+	"dumbmerch/models"
+	"time"
+)
+
 type CreateUserRequest struct {
 	Name     string `json:"name" form:"name" validate:"required"`
 	Email    string `json:"email" form:"email" validate:"required"`
@@ -13,10 +18,11 @@ type UpdateUserRequest struct {
 }
 
 type UserResponse struct {
-	ID   int    `json:"id"`
-	Name string `json:"name"`
-	// Email     string    `json:"email"`
-	// Password  string    `json:"passwordxxxxxxx"`
-	// CreatedAt time.Time `json:"created_at"`
-	// UpdatedAt time.Time `json:"updated_at"`
+	ID        int                    `json:"id"`
+	Name      string                 `json:"name"`
+	Email     string                 `json:"email"`
+	Password  string                 `json:"password"`
+	Profile   models.ProfileResponse `json:"profile"`
+	CreatedAt time.Time              `json:"created_at"`
+	UpdatedAt time.Time              `json:"updated_at"`
 }

@@ -15,6 +15,7 @@ type Profile struct {
 
 // for association relation with another table (user)
 type ProfileResponse struct {
+	ID      int    `json:"id"`
 	Phone   string `json:"phone"`
 	Gender  string `json:"gender"`
 	Address string `json:"address"`

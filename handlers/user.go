@@ -156,9 +156,11 @@ func (h *handlerUser) DeleteUser(c echo.Context) error {
 
 func convertResponse(u models.User) usersdto.UserResponse {
 	return usersdto.UserResponse{
-		ID:   u.ID,
-		Name: u.Name,
-		// Email:    u.Email,
-		// Password: u.Password,
+		ID:       u.ID,
+		Name:     u.Name,
+		Email:    u.Email,
+		Password: u.Password,
+		// ProfileID: u.Profile.ID,
+		Profile: u.Profile,
 	}
 }
