@@ -13,4 +13,5 @@ func AuthRoutes(e *echo.Group) {
 	h := handlers.HandlerAuth(r)
 
 	e.POST("/register", h.Register)
+	e.POST("/login", h.Login)
 }

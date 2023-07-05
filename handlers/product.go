@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/go-playground/validator/v10"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/labstack/echo/v4"
 )
 
@@ -67,13 +68,16 @@ func (h *handlerProduct) CreateProduct(c echo.Context) error {
 			Message: err.Error()})
 	}
 
+	userLogin := c.Get("userLogin")
+	userId := userLogin.(jwt.MapClaims)["id"].(float64)
+
 	data := models.Product{
 		Name:      request.Name,
 		Desc:      request.Desc,
 		Price:     request.Price,
 		Image:     request.Image,
 		Qty:       request.Qty,
-		UserID:    request.UserID,
+		UserID:    int(userId),
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
