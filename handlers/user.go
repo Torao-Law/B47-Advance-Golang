@@ -13,15 +13,15 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-type handler struct {
+type handlerUser struct {
 	UserRepository repository.UserRepository
 }
 
-func UserHandler(userRepository repository.UserRepository) *handler {
-	return &handler{userRepository}
+func UserHandler(userRepository repository.UserRepository) *handlerUser {
+	return &handlerUser{userRepository}
 }
 
-func (h *handler) FindUsers(c echo.Context) error {
+func (h *handlerUser) FindUsers(c echo.Context) error {
 	users, err := h.UserRepository.FindUsers()
 
 	if err != nil {
@@ -35,7 +35,7 @@ func (h *handler) FindUsers(c echo.Context) error {
 		Data: users})
 }
 
-func (h *handler) GetUser(c echo.Context) error {
+func (h *handlerUser) GetUser(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	user, err := h.UserRepository.GetUser(id)
 
@@ -50,7 +50,7 @@ func (h *handler) GetUser(c echo.Context) error {
 		Data: convertResponse(user)})
 }
 
-func (h *handler) CreateUser(c echo.Context) error {
+func (h *handlerUser) CreateUser(c echo.Context) error {
 	request := new(usersdto.CreateUserRequest)
 	if err := c.Bind(&request); err != nil {
 		return c.JSON(http.StatusBadRequest, dto.ErrorResult{
@@ -88,7 +88,7 @@ func (h *handler) CreateUser(c echo.Context) error {
 		Data: response})
 }
 
-func (h *handler) UpdateUser(c echo.Context) error {
+func (h *handlerUser) UpdateUser(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 	user, err := h.UserRepository.GetUser(id)
 
@@ -132,7 +132,7 @@ func (h *handler) UpdateUser(c echo.Context) error {
 		Data: response})
 }
 
-func (h *handler) DeleteUser(c echo.Context) error {
+func (h *handlerUser) DeleteUser(c echo.Context) error {
 	id, _ := strconv.Atoi(c.Param("id"))
 
 	user, err := h.UserRepository.GetUser(id)
