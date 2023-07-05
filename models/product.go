@@ -24,7 +24,7 @@ type ProductResponse struct {
 	Price      int          `json:"price"`
 	Image      string       `json:"image"`
 	Qty        int          `json:"qty"`
-	UserID     int          `json:"-"`
+	UserID     int          `json:"user_id"`
 	User       UserResponse `json:"user"`
 	Category   []Category   `json:"category" gorm:"many2many:product_categories"`
 	CategoryID []int        `json:"category_id" gorm:"-"`
@@ -37,7 +37,7 @@ type ProductUserResponse struct {
 	Price  int    `json:"price"`
 	Image  string `json:"image"`
 	Qty    int    `json:"qty"`
-	UserID int    `json:"-"`
+	UserID int    `json:"user_id"`
 }
 
 func (ProductResponse) TableName() string {

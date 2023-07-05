@@ -18,12 +18,12 @@ type UpdateUserRequest struct {
 }
 
 type UserResponse struct {
-	ID        int                    `json:"id"`
-	Name      string                 `json:"name"`
-	Email     string                 `json:"email"`
-	Password  string                 `json:"password"`
-	Profile   models.ProfileResponse `json:"profile"`
-	Products  models.Product         `json:"product"`
-	CreatedAt time.Time              `json:"created_at"`
-	UpdatedAt time.Time              `json:"updated_at"`
+	ID        int                          `json:"id"`
+	Name      string                       `json:"name"`
+	Email     string                       `json:"email"`
+	Password  string                       `json:"password"`
+	Profile   models.ProfileResponse       `json:"profile"`
+	Products  []models.ProductUserResponse `json:"product"`
+	CreatedAt time.Time                    `json:"created_at"`
+	UpdatedAt time.Time                    `json:"updated_at"`
 }

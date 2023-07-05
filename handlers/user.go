@@ -161,5 +161,6 @@ func convertResponse(u models.User) usersdto.UserResponse {
 		Email:    u.Email,
 		Password: u.Password,
 		Profile:  u.Profile,
+		Products: u.Products,
 	}
 }
