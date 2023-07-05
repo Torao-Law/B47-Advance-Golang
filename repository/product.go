@@ -10,14 +10,14 @@ type ProductRepository interface {
 
 func (r *repository) FindProducts() ([]models.Product, error) {
 	var Products []models.Product
-	err := r.db.Preload("User").Find(&Products).Error
+	err := r.db.Preload("User").Preload("Category").Find(&Products).Error
 
 	return Products, err
 }
 
 func (r *repository) GetProduct(ID int) (models.Product, error) {
 	var Product models.Product
-	err := r.db.Preload("User").First(&Product, ID).Error
+	err := r.db.Preload("User").Preload("Category").First(&Product, ID).Error
 
 	return Product, err
 }

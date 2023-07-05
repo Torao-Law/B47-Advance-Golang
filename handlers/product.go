@@ -93,11 +93,12 @@ func (h *handlerProduct) CreateProduct(c echo.Context) error {
 
 func convertProductResponse(u models.Product) productdto.ProductResponse {
 	return productdto.ProductResponse{
-		Name:   u.Name,
-		Desc:   u.Desc,
-		Price:  u.Price,
-		Image:  u.Image,
-		Qty:    u.Qty,
-		UserID: u.UserID,
+		Name:     u.Name,
+		Desc:     u.Desc,
+		Price:    u.Price,
+		Image:    u.Image,
+		Qty:      u.Qty,
+		UserID:   u.UserID,
+		Category: u.Category,
 	}
 }
